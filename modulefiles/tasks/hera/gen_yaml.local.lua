@@ -1,0 +1,6 @@
+prepend_path("MODULEPATH", "/scratch1/NCEPDEV/nems/role.epic/spack-stack/spack-stack-1.6.0/envs/unified-env-rocky8/install/modulefiles/Core")
+load("stack-intel/2021.5.0")
+load("python/3.10.13")
+load("proj/9.2.1")
+load("py-jinja2/3.0.3")
+load("py-pyyaml/6.0")

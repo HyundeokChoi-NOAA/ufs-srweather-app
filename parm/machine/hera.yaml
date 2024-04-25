@@ -43,7 +43,9 @@ data:
   obs:
     RAP_obs: /scratch2/BMC/public/data/grids/rap/obs
 cpl_aqm_parm:
-  COMINgefs: /scratch2/NCEPDEV/naqfc/RRFS_CMAQ/GEFS_DATA
+  COMINgefs: /scratch2/NCEPDEV/naqfc/Hyundeok.Choi/Data/GEFS_aerosol
   COMINemis: /scratch2/NCEPDEV/naqfc/RRFS_CMAQ/emissions/nexus
   COMINemispt: /scratch1/RDARCH/rda-arl-gpu/Barry.Baker/emissions/nexus/NEI2016v1/v2023-01-PT
-  DCOMINfire: /scratch2/NCEPDEV/naqfc/RRFS_CMAQ/RAVE_fire
+  DCOMINfire: /scratch2/NCEPDEV/naqfc/Kai.Wang/GBBEPX_fire/RAVE_NA13km/forUFSCMAQrun/G775_for202009_ML_scaledup
+  FIXaqmdust: /scratch1/RDARCH/rda-arl-gpu/Barry.Baker/emissions/nexus/FENGSHA/Online_CMAQ
+  FIXaqmchem_lbcs: /scratch2/NCEPDEV/naqfc/RRFS_CMAQ/LBCS/RRFS_CONUS_13km_no_blending

@@ -1,0 +1,51 @@
+parm/config/var_defns.sh.nco.static:RUN_TASK_AQM_ICS='TRUE'
+parm/config/var_defns.sh.nco.static:# [task_aqm_ics]
+parm/config/var_defns.sh.nco.static:TN_AQM_ICS='aqm_ics'
+parm/config/var_defns.sh.nco.static:NNODES_AQM_ICS='1'
+parm/config/var_defns.sh.nco.static:PPN_AQM_ICS='1'
+parm/config/var_defns.sh.nco.static:WTIME_AQM_ICS='00:30:00'
+parm/config/var_defns.sh.nco.static:MAXTRIES_AQM_ICS='2'
+parm/FV3LAM_wflow.xml:{%- if run_task_aqm_ics %}
+parm/FV3LAM_wflow.xml:<!ENTITY TN_AQM_EXTRN_ICS          "{{ tn_aqm_ics }}_ext">
+parm/FV3LAM_wflow.xml:<!ENTITY TN_AQM_ICS                "{{ tn_aqm_ics }}">
+parm/FV3LAM_wflow.xml:{%- if run_task_aqm_ics %}
+parm/FV3LAM_wflow.xml:  <task name="&TN_AQM_EXTRN_ICS;" cycledefs="at_start" maxtries="{{ maxtries_aqm_ics }}">
+parm/FV3LAM_wflow.xml:    <command>&LOAD_MODULES_RUN_TASK_FP; "&TN_AQM_ICS;" "&JOBSdir;/JAQM_AQM_ICS"</command>
+parm/FV3LAM_wflow.xml:    <nodes>{{ nnodes_aqm_ics }}:ppn={{ ppn_aqm_ics }}</nodes>
+parm/FV3LAM_wflow.xml:    <walltime>{{ wtime_aqm_ics }}</walltime>
+parm/FV3LAM_wflow.xml:  <task name="&TN_AQM_ICS;" cycledefs="cycled" maxtries="{{ maxtries_aqm_ics }}">
+parm/FV3LAM_wflow.xml:    <command>&LOAD_MODULES_RUN_TASK_FP; "&TN_AQM_ICS;" "&JOBSdir;/JAQM_AQM_ICS"</command>
+parm/FV3LAM_wflow.xml:    <nodes>{{ nnodes_aqm_ics }}:ppn={{ ppn_aqm_ics }}</nodes>
+parm/FV3LAM_wflow.xml:    <walltime>{{ wtime_aqm_ics }}</walltime>
+parm/FV3LAM_wflow.xml:    <jobname>&TN_AQM_ICS;</jobname>
+parm/FV3LAM_wflow.xml:    <join>&LOGDIR;/&TN_AQM_ICS;<cyclestr>_@Y@m@d@H&LOGEXT;</cyclestr></join>
+parm/FV3LAM_wflow.xml:{%- if run_task_aqm_ics %}
+parm/FV3LAM_wflow.xml:          <taskdep task="&TN_AQM_ICS;"/>
+ecf/defs/aqm_cycled.def:            task jaqm_ics
+ecf/defs/aqm_cycled.def:            task jaqm_ics
+ecf/defs/aqm_cycled.def:            task jaqm_ics
+ecf/defs/aqm_cycled.def:            task jaqm_ics
+ecf/scripts/prep/jaqm_ics.ecf:#PBS -N aqm_ics_%CYC%
+ecf/scripts/prep/jaqm_ics.ecf:. ${HOMEaqm}/ush/load_modules_run_task.sh aqm_ics "JREGIONAL_AQM_ICS"
+jobs/JAQM_AQM_ICS:source_config_for_task "task_aqm_ics" ${GLOBAL_VAR_DEFNS_FP}
+jobs/JAQM_AQM_ICS:DATA="${DATA:-${COMIN}${SLASH_ENSMEM_SUBDIR}/tmp_AQM_ICS}"
+jobs/JAQM_AQM_ICS:$SCRIPTSdir/exaqm_aqm_ics.sh || \
+Binary file sorc/AQM-utils/.git/index matches
+ush/config.yaml:  RUN_TASK_AQM_ICS: true
+ush/config_defaults.yaml:  # RUN_TASK_AQM_ICS:
+ush/config_defaults.yaml:  # Flag that determines whether the TN_AQM_ICS task is to be run for air quality modeling.
+ush/config_defaults.yaml:  RUN_TASK_AQM_ICS: false
+ush/config_defaults.yaml:# AQM_ICS config parameters
+ush/config_defaults.yaml:task_aqm_ics:
+ush/config_defaults.yaml:  TN_AQM_ICS: "aqm_ics"
+ush/config_defaults.yaml:  NNODES_AQM_ICS: 1
+ush/config_defaults.yaml:  PPN_AQM_ICS: 1
+ush/config_defaults.yaml:  WTIME_AQM_ICS: 00:30:00
+ush/config_defaults.yaml:  MAXTRIES_AQM_ICS: 2
+Binary file ush/.valid_param_vals.yaml.swp matches
+ush/valid_param_vals.yaml:valid_vals_RUN_TASK_AQM_ICS: [True, False]
+Binary file .git/index matches
+Binary file .git/objects/pack/pack-d2058997c9e91f6fc4caa6a72338a7f69ecccfc7.pack matches
+scripts/exaqm_aqm_ics.sh:source_config_for_task "task_aqm_ics" ${GLOBAL_VAR_DEFNS_FP}
+scripts/exaqm_aqm_ics.sh:${USHdir}/aqm_utils_python/add_aqm_ics.py --fv_tracer_file "${fv_tracer_file}" --wrk_ic_file "${wrk_ic_file}"
+scripts/exaqm_aqm_ics.sh:  message_txt="Call to python script \"add_aqm_ics.py\" failed."

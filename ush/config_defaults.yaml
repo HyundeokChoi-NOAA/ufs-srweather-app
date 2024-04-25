@@ -55,7 +55,6 @@ user:
   METPLUS_CONF: '{{ [PARMdir, "metplus"]|path_join }}'
   MET_CONFIG: '{{ [PARMdir, "met"]|path_join }}'
   UFS_WTHR_MDL_DIR: '{{ user.UFS_WTHR_MDL_DIR }}'
- 
 #----------------------------
 # PLATFORM config parameters
 #-----------------------------
@@ -219,7 +218,6 @@ platform:
   # Location to top-level directory of MET installation.
   #
   # MET_BIN_EXEC:
-  # Subdirectory containing MET binaries e.g. "bin"
   #
   # METPLUS_PATH:
   # Location to top-level directory of METplus installation.
@@ -1034,6 +1032,15 @@ workflow_switches:
   # RUN_TASK_PLOT_ALLVARS:
   # Flag that determines whether to run python plotting scripts
   #
+  # RUN_TASK_GEN_YAML:
+  # Flag that determines whether the TN_GEN_YAML task is to be run for JEDI DA.
+  #
+  # RUN_TASK_RUN_JEDI:
+  # Flag that determines whether the TN_RUN_JEDI task is to be run for JEDI DA.
+  #
+  # RUN_TASK_COPY_RESTART:
+  # Flag that determines whether the TN_COPY_RESTART task is to be run for JEDI DA.
+  #
   # RUN_TASK_AQM_ICS:
   # Flag that determines whether the TN_AQM_ICS task is to be run for air quality modeling.
   #
@@ -1091,6 +1098,10 @@ workflow_switches:
   RUN_TASK_VX_ENSPOINT: false
 
   RUN_TASK_PLOT_ALLVARS: false
+
+  RUN_TASK_GEN_YAML: false
+  RUN_TASK_RUN_JEDI: false
+  RUN_TASK_COPY_RESTART: false
 
   RUN_TASK_AQM_ICS: false
   RUN_TASK_AQM_LBCS: false
@@ -1427,7 +1438,7 @@ task_get_extrn_ics:
   TN_GET_EXTRN_ICS: "get_extrn_ics"
   NNODES_GET_EXTRN_ICS: 1
   PPN_GET_EXTRN_ICS: 1
-  MEM_GET_EXTRN_ICS: 4G
+  MEM_GET_EXTRN_ICS: 24G
   WTIME_GET_EXTRN_ICS: 00:45:00
   MAXTRIES_GET_EXTRN_ICS: 1
   #
@@ -1526,7 +1537,7 @@ task_get_extrn_lbcs:
   TN_GET_EXTRN_LBCS: "get_extrn_lbcs"
   NNODES_GET_EXTRN_LBCS: 1
   PPN_GET_EXTRN_LBCS: 1
-  MEM_GET_EXTRN_LBCS: 4G
+  MEM_GET_EXTRN_LBCS: 24G
   WTIME_GET_EXTRN_LBCS: 00:45:00
   MAXTRIES_GET_EXTRN_LBCS: 1
   #
@@ -2468,6 +2479,36 @@ task_run_met_pointstat_vx_ensprob_upa:
   MEM_RUN_MET_POINTSTAT_VX_ENSPROB_UPA: 2G
   WTIME_RUN_MET_POINTSTAT_VX_ENSPROB_UPA: 01:00:00
   MAXTRIES_RUN_MET_POINTSTAT_VX_ENSPROB_UPA: 2
+
+#----------------------------
+# GEN_YAML config parameters
+#-----------------------------
+task_gen_yaml:
+  TN_GEN_YAML: "gen_yaml"
+  NNODES_GEN_YAML: 1
+  PPN_GEN_YAML: 1
+  WTIME_GEN_YAML: 00:10:00
+  MAXTRIES_GEN_YAML: 2
+
+#----------------------------
+# RUN_JEDI config parameters
+#-----------------------------
+task_run_jedi:
+  TN_RUN_JEDI: "run_jedi"
+  NNODES_RUN_JEDI: 4
+  PPN_RUN_JEDI: 1
+  WTIME_RUN_JEDI: 00:30:00
+  MAXTRIES_RUN_JEDI: 2
+
+#----------------------------
+# COPY_RESTART config parameters
+#-----------------------------
+task_copy_restart:
+  TN_COPY_RESTART: "copy_restart"
+  NNODES_COPY_RESTART: 1
+  PPN_COPY_RESTART: 1
+  WTIME_COPY_RESTART: 00:10:00
+  MAXTRIES_COPY_RESTART: 2
 
 #----------------------------
 # AQM_ICS config parameters
