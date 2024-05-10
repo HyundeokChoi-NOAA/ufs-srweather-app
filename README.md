@@ -1,4 +1,4 @@
-The JEDI DA capability was added to this version.
+The JEDI DA capability was added to this version. [April, 2024]
 
 # UFS Short-Range Weather Application
 
