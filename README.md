@@ -1,3 +1,5 @@
+The JEDI DA capability was added to this version.
+
 # UFS Short-Range Weather Application
 
 The Unified Forecast System (UFS) is a community-based, coupled, comprehensive Earth modeling system. It is designed to be the source system for NOAA’s operational numerical weather prediction applications while enabling research, development, and contribution opportunities for the broader Weather Enterprise. For more information about the UFS, visit the UFS Portal at https://ufscommunity.org/.
