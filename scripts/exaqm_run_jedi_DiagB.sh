@@ -54,31 +54,9 @@ This is the ex-script for running JEDI.
 
 JEDI_DIR=${HOMEaqm}/../RDASApp
 export NCO_DIR=${HOMEaqm}/../nco_dirs
-export EXPTDIR=${EXPTDIR}
-
-#tempoally link INPUT directiry
-ln -sf /scratch1/NCEPDEV/da/Hyundeok.Choi/jedi2/test2/Data/inputs/lam_cmaq/INPUT/ /scratch2/NCEPDEV/stmp1/Hyundeok.Choi/reg_da/nco_dirs/INPUT
-
-cd ${NCO_DIR}
-
-print_info_msg "
-=========================================================
-Current Directory:\"${PWD}\"
-========================================================="
-
-
-#run Diffusion
-/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp_20240726/build/bin/fv3jedi_error_covariance_toolbox.x" "${EXPTDIR}/diffusionparameters_lam_cmaq.yaml"
-
-    print_info_msg "
-========================================================================
-
-Successfully ran Diffusion !!!
-
-========================================================================"
 
 #run DiagB
-/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp_20240726/build/bin/gdasapp_chem_diagb.x" "${EXPTDIR}/trace_diagb.yaml"
+/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp/build/bin/gdasapp_chem_diagb.x" "${NCO_DIR}/trace_diagb.yaml"
 
     print_info_msg "
 ========================================================================
@@ -89,10 +67,7 @@ Successfully ran DiagB !!!
 
 
 #run JIED
-#/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/build/bin/fv3jedi_var.x" "${NCO_DIR}/3dvar_nicas_lam_cmaq.yaml"
-
-#run JEDI Diffusion
-/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp_20240726/build/bin/fv3jedi_var.x" "${EXPTDIR}/3dvar_diffusion_lam_cmaq.yaml"
+/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/build/bin/fv3jedi_var.x" "${NCO_DIR}/3dvar_nicas_lam_cmaq.yaml"
 
 #
 #-----------------------------------------------------------------------

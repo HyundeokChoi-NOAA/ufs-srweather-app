@@ -280,9 +280,9 @@
 ###
 # chemical tracers advected by FV3
 ###
-#"gfs_dyn",         "no2",           "no2",           "fv3_history",  "all",  .false.,  "none",  2
+"gfs_dyn",         "no2",           "no2",           "fv3_history",  "all",  .false.,  "none",  2
 #"gfs_dyn",         "no",            "no",            "fv3_history",  "all",  .false.,  "none",  2
-#"gfs_dyn",         "o3",            "o3",            "fv3_history",  "all",  .false.,  "none",  2
+"gfs_dyn",         "o3",            "o3",            "fv3_history",  "all",  .false.,  "none",  2
 #"gfs_dyn",         "no3",           "no3",           "fv3_history",  "all",  .false.,  "none",  2
 #"gfs_dyn",         "h2o2",          "h2o2",          "fv3_history",  "all",  .false.,  "none",  2
 #"gfs_dyn",         "n2o5",          "n2o5",          "fv3_history",  "all",  .false.,  "none",  2

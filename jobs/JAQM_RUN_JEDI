@@ -3,8 +3,8 @@
 #
 #-----------------------------------------------------------------------
 #
-# This script adds extra species for air quality modeling (AQM) to the 
-# initial conditions (ICs).
+# This script is the second step for running JEDI DA.
+# It actually runs JEDI.
 #
 #-----------------------------------------------------------------------
 #

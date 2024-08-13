@@ -61,9 +61,12 @@ fi
 
 export PDY=${PDY}
 export cyc=${cyc}
+export EXPTDIR=${EXPTDIR}
 export PREV_CYCLE_DIR=${PREV_CYCLE_DIR}
 export assim_freq=24
-export PYTHONPATH=$PYTHONPATH:/scratch1/NCEPDEV/da/Hyundeok.Choi/wxflow/src/
+
+#Set PYTHONPATH to load 'wxflow' as a temporary hack
+export PYTHONPATH=$PYTHONPATH:/home/Hyundeok.Choi/wxflow/src/
 
 print_info_msg "
   print out HOMEaqm: ${HOMEaqm}"
@@ -71,7 +74,56 @@ print_info_msg "
 GDAS_DIR=${HOMEaqm}/../GDASApp
 export NCO_DIR=${HOMEaqm}/../nco_dirs
 
-python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/3dvar_nicas_lam_cmaq_template.yaml -o ${NCO_DIR}/3dvar_nicas_lam_cmaq.yaml
+#need to add 'NET_dfv' to create ean experiment directory.
+
+#generate diffusionparameters_lam_cmaq.yaml 
+
+#python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/diffusionparameters_lam_cmaq_template.yaml -o ${NCO_DIR}/diffusionparameters_lam_cmaq.yaml
+python ${GDAS_DIR}/ush/genYAML -i ${EXPTDIR}/diffusionparameters_lam_cmaq_template.yaml -o ${EXPTDIR}/diffusionparameters_lam_cmaq.yaml
+
+#
+#-----------------------------------------------------------------------
+#
+# Print message indicating successful completion of script.
+#
+#-----------------------------------------------------------------------
+#
+
+     print_info_msg "
+========================================================================
+
+Successfully generated YAML for Diffusion!!!
+
+========================================================================"
+
+#generate diagB yaml
+
+#python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/trace_diagb_template.yaml -o ${NCO_DIR}/trace_diagb.yaml
+python ${GDAS_DIR}/ush/genYAML -i ${EXPTDIR}/trace_diagb_template.yaml -o ${EXPTDIR}/trace_diagb.yaml
+
+#
+#-----------------------------------------------------------------------
+#
+# Print message indicating successful completion of script.
+#
+#-----------------------------------------------------------------------
+#
+
+    print_info_msg "
+========================================================================
+
+Successfully generated YAML for DiagB!!!
+
+========================================================================"
+
+#generate 3dvar nicas lam cmaq yaml
+
+#python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/3dvar_nicas_lam_cmaq_template.yaml -o ${NCO_DIR}/3dvar_nicas_lam_cmaq.yaml
+
+#generate 3dvar diffusion lam cmaq yaml
+
+#python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/3dvar_diffusion_lam_cmaq_template.yaml -o ${NCO_DIR}/3dvar_diffusion_lam_cmaq.yaml
+python ${GDAS_DIR}/ush/genYAML -i ${EXPTDIR}/3dvar_diffusion_lam_cmaq_template.yaml -o ${EXPTDIR}/3dvar_diffusion_lam_cmaq.yaml
 
 #
 #-----------------------------------------------------------------------

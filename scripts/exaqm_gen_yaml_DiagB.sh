@@ -8,7 +8,7 @@
 #-----------------------------------------------------------------------
 #
 . $USHdir/source_util_funcs.sh
-source_config_for_task "task_run_jedi" ${GLOBAL_VAR_DEFNS_FP}
+source_config_for_task "task_gen_yaml" ${GLOBAL_VAR_DEFNS_FP}
 #
 #-----------------------------------------------------------------------
 #
@@ -42,57 +42,61 @@ print_info_msg "
 Entering script:  \"${scrfunc_fn}\"
 In directory:     \"${scrfunc_dir}\"
 
-This is the ex-script for running JEDI.
+This is the ex-script for the task that generates YAML file to run JEDI.
 ========================================================================"
 #
 #-----------------------------------------------------------------------
 #
-# This section is for running JEDI
+# This section is for generating YAML file
 #
 #-----------------------------------------------------------------------
 #
 
-JEDI_DIR=${HOMEaqm}/../RDASApp
-export NCO_DIR=${HOMEaqm}/../nco_dirs
-export EXPTDIR=${EXPTDIR}
+if [ "${WORKFLOW_MANAGER}" = "ecflow" ]; then
+  SDATE=$($NDATE -6 ${PDY}${cyc})
+  PDYS_P1=$(echo $SDATE | cut -c1-8)
+  cycs_p1=$(echo $SDATE | cut -c9-10)
+  export PREV_CYCLE_DIR=$(compath.py ${NET}/${model_ver}/${RUN}.${PDYS_P1}/${cycs_p1})
+fi
 
-#tempoally link INPUT directiry
-ln -sf /scratch1/NCEPDEV/da/Hyundeok.Choi/jedi2/test2/Data/inputs/lam_cmaq/INPUT/ /scratch2/NCEPDEV/stmp1/Hyundeok.Choi/reg_da/nco_dirs/INPUT
+export PDY=${PDY}
+export cyc=${cyc}
+export PREV_CYCLE_DIR=${PREV_CYCLE_DIR}
+export assim_freq=24
 
-cd ${NCO_DIR}
+#Set PYTHONPATH to load 'wxflow' as a temporary hack
+export PYTHONPATH=$PYTHONPATH:/home/Hyundeok.Choi/wxflow/src/
 
 print_info_msg "
-=========================================================
-Current Directory:\"${PWD}\"
-========================================================="
+  print out HOMEaqm: ${HOMEaqm}"
 
+GDAS_DIR=${HOMEaqm}/../GDASApp
+export NCO_DIR=${HOMEaqm}/../nco_dirs
 
-#run Diffusion
-/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp_20240726/build/bin/fv3jedi_error_covariance_toolbox.x" "${EXPTDIR}/diffusionparameters_lam_cmaq.yaml"
+#need to add 'NET_dfv' to create ean experiment directory.
+
+#generate diagB yaml
+
+python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/trace_diagb_template.yaml -o ${NCO_DIR}/trace_diagb.yaml
+
+#
+#-----------------------------------------------------------------------
+#
+# Print message indicating successful completion of script.
+#
+#-----------------------------------------------------------------------
+#
 
     print_info_msg "
 ========================================================================
 
-Successfully ran Diffusion !!!
+Successfully generated YAML for DiagB!!!
 
 ========================================================================"
 
-#run DiagB
-/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp_20240726/build/bin/gdasapp_chem_diagb.x" "${EXPTDIR}/trace_diagb.yaml"
+#generate 3dvar nicas lam cmaq yaml
 
-    print_info_msg "
-========================================================================
-
-Successfully ran DiagB !!!
-
-========================================================================"
-
-
-#run JIED
-#/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/build/bin/fv3jedi_var.x" "${NCO_DIR}/3dvar_nicas_lam_cmaq.yaml"
-
-#run JEDI Diffusion
-/apps/slurm_hera/default/bin/srun "-n" "24"  --export='all' "${JEDI_DIR}/../GDASApp_20240726/build/bin/fv3jedi_var.x" "${EXPTDIR}/3dvar_diffusion_lam_cmaq.yaml"
+python ${GDAS_DIR}/ush/genYAML -i ${NCO_DIR}/3dvar_nicas_lam_cmaq_template.yaml -o ${NCO_DIR}/3dvar_nicas_lam_cmaq.yaml
 
 #
 #-----------------------------------------------------------------------
@@ -104,7 +108,7 @@ Successfully ran DiagB !!!
     print_info_msg "
 ========================================================================
 
-Successfully ran JEDI!!!
+Successfully generated YAML for JEDI!!!
 
 ========================================================================"
 

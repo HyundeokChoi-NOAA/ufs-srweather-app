@@ -3,8 +3,11 @@
 #
 #-----------------------------------------------------------------------
 #
-# This script adds extra species for air quality modeling (AQM) to the 
-# initial conditions (ICs).
+# This script is the third step for running JEDI DA.
+# It copies the JEDI analysis file to the previous restart directory
+# and merges NO2 field to the restart file.
+# The restart directory contains JEDI analysis file, and 
+# restart files before and after merging.
 #
 #-----------------------------------------------------------------------
 #

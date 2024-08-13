@@ -100,7 +100,7 @@ fi
 NCO_DIR=${HOMEaqm}/../nco_dirs
 
 # JEDI Analysis
-anal_dir=${NCO_DIR}/Data/analysis
+anal_dir=${EXPTDIR}/Data/analysis
 anal_file=3dvar_lam_cmaq_no2.fv_tracer.res.nc
 anal_fv_tracer_file=${anal_dir}/${PDY}.${cyc}0000.${anal_file}
 
@@ -117,8 +117,8 @@ fcst_fv_tracer_file=${rst_dir}/${PDY}.${cyc}0000.${fcst_file}
 temp_fv_tracer_file=${rst_dir}/${PDY}.${cyc}0000.${anal_file}
 
 # copy JEDI analysis file to the previous cycle directory
-cp ${anal_fv_tracer_file} ${temp_fv_tracer_file}
-cp ${rst_fv_tracer_file} ${fcst_fv_tracer_file}
+cp -p ${anal_fv_tracer_file} ${temp_fv_tracer_file}
+cp -p ${rst_fv_tracer_file} ${fcst_fv_tracer_file}
 
 # merge JEDI no2 field with the restart file in the previous cycle
 ncks -A -v no2 ${temp_fv_tracer_file} ${rst_fv_tracer_file}

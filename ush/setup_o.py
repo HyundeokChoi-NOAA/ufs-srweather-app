@@ -1001,12 +1001,6 @@ def setup(USHdir, user_config_fn="config.yaml", debug: bool = False):
     # create experiment dir
     mkdir_vrfy(f' -p "{exptdir}"')
 
-    # create JEDI hofx and analysis dirs [Hyundeok Choi 8/7/2024] 
-    mkdir_vrfy(f' -p "{exptdir}/Data/hofx"')
-    mkdir_vrfy(f' -p "{exptdir}/Data/analysis"')
-    mkdir_vrfy(f' -p "{exptdir}/Data/diagb_tracer"')
-    mkdir_vrfy(f' -p "{exptdir}/Data/diffusion"')
-    
     # -----------------------------------------------------------------------
     #
     # The FV3 forecast model needs the following input files in the run

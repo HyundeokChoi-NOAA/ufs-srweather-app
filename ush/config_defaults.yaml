@@ -1099,9 +1099,9 @@ workflow_switches:
 
   RUN_TASK_PLOT_ALLVARS: false
 
-  RUN_TASK_GEN_YAML: false
-  RUN_TASK_RUN_JEDI: false
-  RUN_TASK_COPY_RESTART: false
+  RUN_TASK_GEN_YAML: true
+  RUN_TASK_RUN_JEDI: true
+  RUN_TASK_COPY_RESTART: true
 
   RUN_TASK_AQM_ICS: false
   RUN_TASK_AQM_LBCS: false
@@ -2496,8 +2496,8 @@ task_gen_yaml:
 task_run_jedi:
   TN_RUN_JEDI: "run_jedi"
   NNODES_RUN_JEDI: 4
-  PPN_RUN_JEDI: 1
-  WTIME_RUN_JEDI: 00:30:00
+  PPN_RUN_JEDI: 6
+  WTIME_RUN_JEDI: 00:40:00
   MAXTRIES_RUN_JEDI: 2
 
 #----------------------------

@@ -299,8 +299,8 @@ fire_species::
     PSI     0.0018     PM2.5       KG/M2/S
     PSO4    0.0126     PM2.5       KG/M2/S
     PTI     0.0001     PM2.5       KG/M2/S
-    NO      0.9000     NOx         KG/M2/S
-    NO2     0.1000     NOx         KG/M2/S
+    NO      0.0450     CO          KG/M2/S
+    NO2     0.0050     CO          KG/M2/S
     SO2     0.0080     CO          KG/M2/S
     NH3     0.0150     CO          KG/M2/S
     CO      1.0000     CO          KG/M2/S
