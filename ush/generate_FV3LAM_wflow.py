@@ -394,9 +394,17 @@ def generate_FV3LAM_wflow(ushdir, logfile: str = "log.generate_FV3LAM_wflow", de
 #
 #copy template files to the experiment directory for JEDI [Hyundeok Choi 8/2/2024] 
 #
-    cp_vrfy(f"{EXPTDIR}/../../nco_dirs/diffusionparameters_lam_cmaq_template.yaml", f"{EXPTDIR}/diffusionparameters_lam_cmaq_template.yaml")
-    cp_vrfy(f"{EXPTDIR}/../../nco_dirs/trace_diagb_template.yaml", f"{EXPTDIR}/trace_diagb_template.yaml")
-    cp_vrfy(f"{EXPTDIR}/../../nco_dirs/3dvar_diffusion_lam_cmaq_template.yaml", f"{EXPTDIR}/3dvar_diffusion_lam_cmaq_template.yaml")
+#    cp_vrfy(f"{EXPTDIR}/../../nco_dirs/diffusionparameters_lam_cmaq_template.yaml", f"{EXPTDIR}/diffusionparameters_lam_cmaq_template.yaml")
+#    cp_vrfy(f"{EXPTDIR}/../../nco_dirs/trace_diagb_template.yaml", f"{EXPTDIR}/trace_diagb_template.yaml")
+#    cp_vrfy(f"{EXPTDIR}/../../nco_dirs/3dvar_diffusion_lam_cmaq_template.yaml", f"{EXPTDIR}/3dvar_diffusion_lam_cmaq_template.yaml")
+
+
+# copy template files from USH directory.   [Hyundeok Choi 8/16/2024]
+    cp_vrfy(f"{USHdir}/diffusionparameters_lam_cmaq_template.yaml", f"{EXPTDIR}/diffusionparameters_lam_cmaq_template.yaml")
+    cp_vrfy(f"{USHdir}/trace_diagb_template.yaml", f"{EXPTDIR}/trace_diagb_template.yaml")
+    cp_vrfy(f"{USHdir}/3dvar_diffusion_lam_cmaq_template.yaml", f"{EXPTDIR}/3dvar_diffusion_lam_cmaq_template.yaml")
+
+
 
     #
     # Copy the CCPP physics suite definition file from its location in the

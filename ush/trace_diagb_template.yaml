@@ -1,0 +1,32 @@
+geometry:
+  fms initialization:
+    namelist filename: '{{NCO_DIR}}/Data/fv3files/fmsmpp.nml'
+    field table filename: '{{NCO_DIR}}/Data/fv3files/field_table_lam_cmaq'
+  akbk: '{{NCO_DIR}}/Data/fv3files/akbk64.nc4'
+  namelist filename: '{{NCO_DIR}}/Data/fv3files/input_lam_cmaq.nml'
+  field metadata override: '{{NCO_DIR}}/Data/fieldmetadata/lam_cmaq.yaml'
+date: '{{ CURRENT_CYCLE | to_isotime }}' 
+background:
+  datetime: '{{ CURRENT_CYCLE | to_isotime }}'
+  filetype: fms restart
+  state variables:
+  - volume_mixing_ratio_of_no2
+  datapath: '{{PREV_CYCLE_DIR}}/RESTART'
+  filename_core: '{{ CURRENT_CYCLE | to_fv3time }}.fv_core.res.tile1.nc'
+  filename_trcr: '{{ CURRENT_CYCLE | to_fv3time }}.fv_tracer.res.tile1.nc'
+  filename_cplr: '{{ CURRENT_CYCLE | to_fv3time }}.coupler.res'
+background error:
+  filetype: fms restart
+  datapath: '{{EXPTDIR}}/Data/diagb_tracer'
+  filename_trcr: stddev.fv_tracer.res.nc
+  filename_cplr: stddev.coupler.res
+
+variables:
+  name:
+  - volume_mixing_ratio_of_no2
+rescale: 5    # rescales the filtered std. dev. by "rescale"
+number of halo points: 12
+number of neighbors: 1024
+simple smoothing:
+  horizontal iterations: 50
+  vertical iterations: 1

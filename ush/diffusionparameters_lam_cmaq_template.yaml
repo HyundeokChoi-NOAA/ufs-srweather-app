@@ -1,0 +1,38 @@
+geometry:
+  fms initialization:
+    namelist filename: '{{NCO_DIR}}/Data/fv3files/fmsmpp.nml'
+    field table filename: '{{NCO_DIR}}/Data/fv3files/field_table_lam_cmaq'
+  akbk: '{{NCO_DIR}}/Data/fv3files/akbk64.nc4'
+  namelist filename: '{{NCO_DIR}}/Data/fv3files/input_lam_cmaq.nml'
+  field metadata override: '{{NCO_DIR}}/Data/fieldmetadata/lam_cmaq.yaml'
+background:
+  datetime: '{{ CURRENT_CYCLE | to_isotime }}'
+  filetype: fms restart
+  datapath: '{{PREV_CYCLE_DIR}}/RESTART'
+  filename_core: '{{ CURRENT_CYCLE | to_fv3time }}.fv_core.res.tile1.nc'
+  filename_trcr: '{{ CURRENT_CYCLE | to_fv3time }}.fv_tracer.res.tile1.nc'
+  filename_cplr: '{{ CURRENT_CYCLE | to_fv3time }}.coupler.res'
+  state variables: 
+  - volume_mixing_ratio_of_no2
+background error:
+  covariance model: SABER
+  saber central block:
+    saber block name: diffusion 
+    calibration:
+      normalization:
+        iterations: 50        #< in the real world you'll want to use 1e4-1e5 or so,
+                                #  depending on how accurate you want the normalization
+      groups:
+      - horizontal:
+          fixed value: 500e3
+          # as gaussian: true
+        write:
+#         filepath: '{{NCO_DIR}}/Data/diffusion/{{ CURRENT_CYCLE | to_YMD }}.diffusion_hz'
+          filepath: '{{EXPTDIR}}/Data/diffusion/{{ CURRENT_CYCLE | to_YMD }}.diffusion_hz'
+      - vertical:
+          levels: 64 
+          fixed value: 5.0
+          as gaussian: true
+        write:
+#         filepath: '{{NCO_DIR}}/Data/diffusion/{{ CURRENT_CYCLE | to_YMD }}.diffusion_vt'
+          filepath: '{{EXPTDIR}}/Data/diffusion/{{ CURRENT_CYCLE | to_YMD }}.diffusion_vt'
